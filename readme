@@ -1,0 +1,9 @@
+一.mysql查询表的数据大小
+1、要查询表所占的容量，就是把表的数据和索引加起来就可以了
+select sum(DATA_LENGTH)+sum(INDEX_LENGTH) from information_schema.tables 
+where table_schema='数据库名';
+上面获取的结果是以字节为单位的，可以通过%1024在%1024的到M为单位的结果。
+2、查询所有的数据大小
+select concat(round(sum(DATA_LENGTH/1024/1024),2),'M') from tables; -- 查询所有的数据大小
+3、查询某个表的数据
+select concat(round(sum(DATA_LENGTH/1024/1024),2),'M') from tables where table_schema=’数据库名’ AND table_name=’表名’; 
